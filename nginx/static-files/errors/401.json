@@ -1,0 +1,7 @@
+{
+    "meta": {
+        "status": 401,
+        "message": "Authorization required"
+    },
+    "response": null
+}

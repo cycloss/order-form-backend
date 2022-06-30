@@ -1,0 +1,7 @@
+{
+    "meta": {
+        "status": 404,
+        "message": "Invalid endpoint"
+    },
+    "response": null
+}

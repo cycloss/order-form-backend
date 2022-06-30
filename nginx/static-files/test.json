@@ -1,0 +1,7 @@
+{
+    "meta": {
+        "status": 200,
+        "message": "Success"
+    },
+    "response": "Test of uinvest reverse proxy successful"
+}

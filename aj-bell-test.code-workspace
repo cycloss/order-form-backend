@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"name": "root",
+			"path": "."
+		},
+		{
+			"path": "auth"
+		},
+		{
+			"path": "db"
+		},
+		{
+			"path": "e2e-testing"
+		},
+		{
+			"path": "nginx"
+		},
+		{
+			"path": "order-api"
+		},
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"auth": true,
+			"db": true,
+			"e2e-testing": true,
+			"nginx": true,
+			"order-api": true,
+		}
+	}
+}

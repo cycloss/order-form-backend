@@ -1,13 +1,8 @@
 version: "3.9"
 
-#
-# Templates
-#
-x-nginx: &x-nginx 
-
 services:
 
-  nginx-deploy:
+  nginx-dev:
     image: nginx:1.21.6
     container_name: nginx
     restart: unless-stopped

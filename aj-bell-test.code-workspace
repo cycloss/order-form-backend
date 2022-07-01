@@ -19,6 +19,9 @@
 		{
 			"path": "order-api"
 		},
+		{
+			"path": "share"
+		},
 	],
 	"settings": {
 		"files.exclude": {
@@ -28,6 +31,7 @@
 			"e2e-testing": true,
 			"nginx": true,
 			"order-api": true,
+			"share": true,
 		}
 	}
 }

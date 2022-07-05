@@ -21,11 +21,17 @@ certgen: ## generate self signed tls cert for nginx
 playground: ## run the playground file
 	go run playground/main.go
 
-devup: ## start all services in the dev profiles
-	docker-compose --profile dev up -d
+up: ## start all services in the dev profiles
+	docker-compose -f docker-compose.base.yml up -d
 
-devdown: ## stop all services in the dev profiles	
-	docker-compose --profile dev down
+down: ## stop all services in the dev profiles	
+	docker-compose -f docker-compose.base.yml down
 
-devrestart: ## restart all services in the dev profiles	
-	docker-compose --profile dev restart
+restart: ## restart all services in the dev profiles	
+	docker-compose restart
+
+test: ## run all tests
+	docker-compose -f docker-compose.base.yml -f docker-compose.test.yml up	-d
+
+db-shell: ## Start mysql client in db's uinvest database
+	docker-compose -f docker-compose.base.yml exec db sh -c 'mysql -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} $${MYSQL_DATABASE}'	

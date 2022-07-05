@@ -1,0 +1,16 @@
+FROM golang:1.18 AS builder
+
+# dependency management files
+COPY share/go.* /share/
+COPY order-api/go.* /app/
+
+WORKDIR /app
+# should only run mod download if any files in order-api .go files change
+RUN go mod download
+
+# copy shared libraries
+COPY share/*.go /share/
+
+COPY order-api/*.go ./
+
+CMD [ "go", "test" ]

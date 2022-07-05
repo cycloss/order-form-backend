@@ -11,9 +11,6 @@
 			"path": "db"
 		},
 		{
-			"path": "e2e-testing"
-		},
-		{
 			"path": "nginx"
 		},
 		{
@@ -28,7 +25,6 @@
 			"**/.git": true,
 			"auth": true,
 			"db": true,
-			"e2e-testing": true,
 			"nginx": true,
 			"order-api": true,
 			"share": true,

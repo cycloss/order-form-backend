@@ -37,5 +37,5 @@ func (bp *buyProcessor) process() (any, error) {
 }
 
 func (upr *buyProcessor) V1() (any, error) {
-	return nil, nil
+	return "success", nil
 }

@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  order-api-test:
+    image: orderapi-test
+    container_name: orderapi-test
+    build:
+      context: .
+      # override the dockerfile for tests
+      dockerfile: ./order-api/Dockerfile_tests
+    command: ${TEST_COMMAND:-go test -v ./test}
+    depends_on:
+      - db
+    restart: "no"
+    env_file: ./order-api/.env
+    networks:
+      - uinvest

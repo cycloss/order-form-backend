@@ -2,15 +2,20 @@
 FROM golang:1.18 AS builder
 
 # dependency management files
-COPY share/go.* /share/
-COPY order-api/go.* /app/
+COPY ./share/go.* /share/
+COPY ./db-test/go.* /db-test/
+COPY ./order-api/go.* /app/
+
+
 
 WORKDIR /app
 # should only run mod download if any files in order-api .go files change
 RUN go mod download
 
 # copy shared libraries
-COPY share/*.go /share/
+COPY ./share/*.go /share/
+COPY ./db-test/go.* /db-test/
+COPY ./db-test/db-create/go.* /db-test/db-create
 
 COPY order-api/*.go ./
 

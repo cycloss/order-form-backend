@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"net/http"
@@ -8,21 +8,21 @@ import (
 	"gorm.io/gorm"
 )
 
-func (hr *handlerWrapper) buyHandler(c *gin.Context) {
+func (hr *HandlerWrapper) BuyHandler(c *gin.Context) {
 	hr.transact(c, newBuyProcessor)
 }
 
-type buyProcessor struct {
+type BuyProcessor struct {
 	tx        *gorm.DB
 	context   *gin.Context
 	uInvestId int
 }
 
 func newBuyProcessor(c *gin.Context, tx *gorm.DB, uInvestId int) requestProcessor {
-	return &buyProcessor{tx: tx, context: c, uInvestId: uInvestId}
+	return &BuyProcessor{tx: tx, context: c, uInvestId: uInvestId}
 }
 
-func (bp *buyProcessor) process() (any, error) {
+func (bp *BuyProcessor) process() (any, error) {
 	version, err := share.GetAPIVersionFromHeader(bp.context.Request)
 	if err != nil {
 		return nil, err
@@ -36,6 +36,6 @@ func (bp *buyProcessor) process() (any, error) {
 	}
 }
 
-func (upr *buyProcessor) V1() (any, error) {
+func (upr *BuyProcessor) V1() (any, error) {
 	return "success", nil
 }

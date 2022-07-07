@@ -1,9 +1,0 @@
-version: "3.9"
-
-services:
-  order-api:
-    build:
-      context: .
-      # override the dockerfile for tests
-      dockerfile: ./order-api/Dockerfile_tests
-    restart: "no"

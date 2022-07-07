@@ -5,6 +5,9 @@
 			"path": "."
 		},
 		{
+			"path": "order-api"
+		},
+		{
 			"path": "auth"
 		},
 		{
@@ -14,10 +17,10 @@
 			"path": "nginx"
 		},
 		{
-			"path": "order-api"
+			"path": "share"
 		},
 		{
-			"path": "share"
+			"path": "playground"
 		},
 	],
 	"settings": {
@@ -28,6 +31,7 @@
 			"nginx": true,
 			"order-api": true,
 			"share": true,
+			"playground": true
 		}
 	}
 }

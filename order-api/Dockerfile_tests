@@ -9,8 +9,8 @@ WORKDIR /app
 RUN go mod download
 
 # copy shared libraries
-COPY share/*.go /share/
+COPY share/ /share/
+COPY order-api/ ./
 
-COPY order-api/*.go ./
 
-CMD [ "go", "test" ]
+CMD [ "go", "test", "-v", "./test"]

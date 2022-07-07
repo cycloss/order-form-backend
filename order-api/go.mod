@@ -3,6 +3,7 @@ module github.com/cycloss/aj-bell-test/order-api
 go 1.18
 
 require (
+	github.com/Rhymond/go-money v1.0.7
 	github.com/cycloss/aj-bell-test/share v0.0.0
 	github.com/gin-gonic/gin v1.8.1
 	gorm.io/gorm v1.23.7

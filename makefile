@@ -19,19 +19,39 @@ certgen: ## generate self signed tls cert for nginx
 	./nginx/certs/cert-gen.sh
 
 playground: ## run the playground file
-	go run playground/main.go
+	(cd playground && go run .)
 
-up: ## start all services in the dev profiles
-	docker-compose -f docker-compose.base.yml up -d
+BASE = compose-files/docker-compose.base.yml
 
-down: ## stop all services in the dev profiles	
-	docker-compose -f docker-compose.base.yml down
+BASE_FLAGS = -f $(BASE) --project-directory .
 
-restart: ## restart all services in the dev profiles	
-	docker-compose restart
+DEV = compose-files/docker-compose.dev.yml
+
+DEV_FLAGS = -f $(BASE) -f $(DEV) --project-directory .
+
+up: ## start all dev services (without building)
+	docker-compose $(DEV_FLAGS) up -d --remove-orphans
+
+down: ## stop all dev services	
+	docker-compose $(DEV_FLAGS) down --remove-orphans
+
+build: ## build all dev services
+	docker-compose $(DEV_FLAGS) build
+
+TEST = compose-files/docker-compose.test.yml
+
+TEST_FLAGS = -f $(BASE) -f $(TEST) --project-directory .
 
 test: ## run all tests
-	docker-compose -f docker-compose.base.yml -f docker-compose.test.yml up	-d
+	docker-compose $(TEST_FLAGS) up	--build --remove-orphans order-api-test
 
-db-shell: ## Start mysql client in db's uinvest database
-	docker-compose -f docker-compose.base.yml exec db sh -c 'mysql -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} $${MYSQL_DATABASE}'	
+db-shell: ## start mysql client in db's uinvest database
+	docker-compose $(BASE_FLAGS) exec db sh -c 'mysql -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} $${MYSQL_DATABASE}'	
+
+db-populate: ## populate the database
+	export TEST_COMMAND="go test -v ./test -run \"^TestDbPopulate$$\"" && \
+	docker-compose $(TEST_FLAGS) up --build --remove-orphans order-api-test
+
+db-clear: ## clear the database
+	export TEST_COMMAND="go test -v ./test -run \"^TestDbClear$$\"" && \
+	docker-compose $(TEST_FLAGS) up --build --remove-orphans order-api-test

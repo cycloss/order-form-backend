@@ -34,6 +34,7 @@ services:
       - uinvest
 
   order-api:
+    image: orderapi
     container_name: orderapi
     depends_on:
       - db
@@ -41,6 +42,7 @@ services:
       context: .
       dockerfile: ./order-api/Dockerfile
     restart: unless-stopped
+    env_file: ./order-api/.env
     networks:
       - uinvest
 

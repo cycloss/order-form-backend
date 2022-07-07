@@ -1,0 +1,7 @@
+version: '3.9'
+
+services:
+  db:
+    volumes:
+      # mount into local for persistence
+      - "./db/mysql:/var/lib/mysql"

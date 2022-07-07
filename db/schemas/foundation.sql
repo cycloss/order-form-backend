@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS assets (
 CREATE TABLE IF NOT EXISTS currencies (
     id int NOT NULL auto_increment,
     code varchar(3) NOT NULL,
+    UNIQUE KEY(code),
     PRIMARY KEY(id)
 );
 
@@ -30,6 +31,8 @@ CREATE TABLE IF NOT EXISTS prices (
 CREATE TABLE IF NOT EXISTS investors (
     id int NOT NULL auto_increment,
     name varchar(64) NOT NULL,
+    /* plain text pass should NEVER be done in production, but done here for demo purposes */
+    pass varchar(64) NOT NULL,
     PRIMARY KEY(id)
 );
 

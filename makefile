@@ -38,6 +38,9 @@ down: ## stop all dev services
 build: ## build all dev services
 	docker-compose $(DEV_FLAGS) build
 
+orderapi-restart: ## Rebuild and restart the rad-api-dev service (applies compose file changes)
+	docker-compose  $(DEV_FLAGS) up --build --force-recreate --no-deps -d order-api
+
 TEST = compose-files/docker-compose.test.yml
 
 TEST_FLAGS = -f $(BASE) -f $(TEST) --project-directory .

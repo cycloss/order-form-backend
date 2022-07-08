@@ -1,13 +1,15 @@
 package share
 
 type Asset struct {
-	Id   int `gorm:"primary_key, AUTO_INCREMENT"`
-	Isin string
-	Name string
+	Id         int `gorm:"primary_key, AUTO_INCREMENT"`
+	Isin       string
+	Name       string
+	Price      int
+	CurrencyId int
 }
 
-func NewAsset(isin, name string) *Asset {
-	return &Asset{Isin: isin, Name: name}
+func NewAsset(isin, name string, price int, currencyId int) *Asset {
+	return &Asset{Isin: isin, Name: name, Price: price, CurrencyId: currencyId}
 }
 
 type Currency struct {
@@ -17,17 +19,6 @@ type Currency struct {
 
 func NewCurrency(code string) *Currency {
 	return &Currency{Code: code}
-}
-
-type Price struct {
-	Id         int `gorm:"primary_key, AUTO_INCREMENT"`
-	AssetId    int
-	Price      float64
-	CurrencyId int
-}
-
-func NewPrice(assetId, currencyId int, price float64) *Price {
-	return &Price{AssetId: assetId, Price: price, CurrencyId: currencyId}
 }
 
 type Investor struct {

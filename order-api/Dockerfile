@@ -3,7 +3,6 @@ FROM golang:1.18 AS builder
 
 # dependency management files
 COPY ./share/go.* /share/
-COPY ./db-test/go.* /db-test/
 COPY ./order-api/go.* /app/
 
 
@@ -14,10 +13,8 @@ RUN go mod download
 
 # copy shared libraries
 COPY ./share/*.go /share/
-COPY ./db-test/go.* /db-test/
-COPY ./db-test/db-create/go.* /db-test/db-create
 
-COPY order-api/*.go ./
+COPY order-api/ ./
 
 # compile, variables MUST be ARG and not ENV.
 # CGO_ENABLED is mandatory as alpine doesn't have the dylib files required by the compiled binary

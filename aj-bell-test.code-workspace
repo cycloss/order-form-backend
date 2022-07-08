@@ -8,9 +8,6 @@
 			"path": "order-api"
 		},
 		{
-			"path": "auth"
-		},
-		{
 			"path": "db"
 		},
 		{
@@ -26,7 +23,6 @@
 	"settings": {
 		"files.exclude": {
 			"**/.git": true,
-			"auth": true,
 			"db": true,
 			"nginx": true,
 			"order-api": true,

@@ -18,9 +18,9 @@ func main() {
 	router := gin.Default()
 	orderApiGroup := router.Group("/order-api")
 	orderApiGroup.POST("/buy", hr.BuyHandler)
-	orderApiGroup.POST("/invest", nil)
-	orderApiGroup.POST("/sell", nil)
-	orderApiGroup.POST("/raise", nil)
+	orderApiGroup.POST("/sell", hr.SellHandler)
+	orderApiGroup.POST("/invest", hr.InvestHandler)
+	orderApiGroup.POST("/raise", hr.RaiseHandler)
 	orderApiGroup.GET("/asset-holdings", nil)
 	orderApiGroup.GET("/currency-holdings", nil)
 

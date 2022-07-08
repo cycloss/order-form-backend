@@ -26,16 +26,13 @@ func TestDbPopulate(t *testing.T) {
 }
 
 func dbPopulate(tx *gorm.DB) error {
-	assetMap, err := insertDummyAssets(tx)
-	if err != nil {
-		return err
-	}
+
 	currency, err := insertDummyCurrency(tx)
 	if err != nil {
 		return err
 	}
 
-	err = insertDummyPrices(tx, assetMap, currency.Id)
+	assetMap, err := insertDummyAssets(tx, currency.Id)
 	if err != nil {
 		return err
 	}
@@ -58,17 +55,6 @@ func dbPopulate(tx *gorm.DB) error {
 	return nil
 }
 
-func insertDummyAssets(tx *gorm.DB) (map[string]*share.Asset, error) {
-	assetMap := createDummyAssetMap()
-	for _, v := range assetMap {
-		err := tx.Omit("id").Create(v).Error
-		if err != nil {
-			return nil, err
-		}
-	}
-	return assetMap, nil
-}
-
 func insertDummyCurrency(tx *gorm.DB) (*share.Currency, error) {
 	currency := createDummyCurrency()
 
@@ -80,6 +66,17 @@ func insertDummyCurrency(tx *gorm.DB) (*share.Currency, error) {
 	return currency, nil
 }
 
+func insertDummyAssets(tx *gorm.DB, currencyId int) (map[string]*share.Asset, error) {
+	assetMap := createDummyAssetMap(currencyId)
+	for _, v := range assetMap {
+		err := tx.Omit("id").Create(v).Error
+		if err != nil {
+			return nil, err
+		}
+	}
+	return assetMap, nil
+}
+
 func insertDummyInvestor(tx *gorm.DB) (*share.Investor, error) {
 	investor := createDummyInvestor()
 
@@ -88,44 +85,6 @@ func insertDummyInvestor(tx *gorm.DB) (*share.Investor, error) {
 		return nil, err
 	}
 	return investor, nil
-}
-
-func insertDummyPrices(tx *gorm.DB, assetMap map[string]*share.Asset, currencyId int) error {
-
-	err := insertPrice(tx, currencyId, brIsin, brPrice, assetMap)
-	if err != nil {
-		return err
-	}
-	err = insertPrice(tx, currencyId, tnIsin, tnPrice, assetMap)
-	if err != nil {
-		return err
-	}
-	err = insertPrice(tx, currencyId, vgFtseIsin, vgFtsePrice, assetMap)
-	if err != nil {
-		return err
-	}
-	err = insertPrice(tx, currencyId, lgjIsin, lgjPrice, assetMap)
-	if err != nil {
-		return err
-	}
-	err = insertPrice(tx, currencyId, vgUsIsin, vgUsPrice, assetMap)
-	if err != nil {
-		return err
-	}
-	err = insertPrice(tx, currencyId, vgUkIsin, vgUkPrice, assetMap)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func insertPrice(tx *gorm.DB, currencyId int, isin string, assetPrice float64, assetMap map[string]*share.Asset) error {
-	asset, ok := assetMap[isin]
-	if !ok {
-		return fmt.Errorf("asset with ISIN %s not found in map", isin)
-	}
-	price := share.NewPrice(asset.Id, currencyId, assetPrice)
-	return tx.Omit("id").Create(price).Error
 }
 
 // 220,000 in pennies

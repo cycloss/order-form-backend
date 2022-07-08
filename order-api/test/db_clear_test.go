@@ -33,15 +33,11 @@ func dbClear(tx *gorm.DB) error {
 	if err != nil {
 		return err
 	}
-	err = tx.Delete(&share.Price{}, "1 = 1").Error
+	err = tx.Delete(&share.Asset{}, "1 = 1").Error
 	if err != nil {
 		return err
 	}
 	err = tx.Delete(&share.Currency{}, "1 = 1").Error
-	if err != nil {
-		return err
-	}
-	err = tx.Delete(&share.Asset{}, "1 = 1").Error
 	if err != nil {
 		return err
 	}
